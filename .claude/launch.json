@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "plantcare", "run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "vidyaverse-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "vidyaverse", "run", "dev"],
+      "port": 3000
     }
   ]
 }
