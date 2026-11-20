@@ -1,0 +1,356 @@
+@import "tailwindcss";
+
+/* ============================================================
+   VerdeBase Design System
+   Botanical Intelligence + Database Observability Platform
+   ============================================================ */
+
+:root {
+  /* --- Core Backgrounds --- */
+  --bg-primary:    #0d1a0c;
+  --bg-secondary:  #111e10;
+  --bg-panel:      #161f15;
+  --bg-card:       #1a2618;
+  --bg-glass:      rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(255, 255, 255, 0.07);
+
+  /* --- Borders --- */
+  --border:        rgba(134, 188, 66, 0.12);
+  --border-strong: rgba(134, 188, 66, 0.25);
+  --border-muted:  rgba(255, 255, 255, 0.06);
+
+  /* --- Green Palette --- */
+  --green-primary: #86bc42;
+  --green-bright:  #a0d954;
+  --green-muted:   #4a7c38;
+  --green-deep:    #2d5a1e;
+  --sage:          #7a9a6c;
+  --sage-muted:    #5a7a50;
+
+  /* --- Text --- */
+  --text-primary:  #e8f0e2;
+  --text-secondary: #a8bc96;
+  --text-muted:    #6a8458;
+  --text-faint:    #4a6040;
+
+  /* --- Status Colors --- */
+  --amber:         #c9933a;
+  --amber-muted:   #8a5c1a;
+  --error:         #c94a4a;
+  --error-muted:   #7a2020;
+  --info:          #4a9abf;
+
+  /* --- DBMS Studio Specific --- */
+  --studio-bg:         #0a1520;
+  --studio-panel:      #0e1c2a;
+  --studio-card:       #122030;
+  --studio-border:     rgba(74, 154, 191, 0.15);
+  --studio-accent:     #4a9abf;
+  --studio-accent-dim: #2a6080;
+
+  /* --- Typography --- */
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* --- Spacing Scale --- */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+
+  /* --- Shadows --- */
+  --shadow-card:   0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-panel:  0 8px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow:   0 0 20px rgba(134, 188, 66, 0.15);
+  --shadow-studio: 0 0 20px rgba(74, 154, 191, 0.12);
+}
+
+/* ============================================================
+   Global Reset + Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   Scrollbar Styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--green-deep);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-muted);
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   VerdeBase UI Component Classes
+   ============================================================ */
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-glow);
+}
+
+.card-glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--green-primary);
+  color: #0d1a0c;
+}
+.btn-primary:hover {
+  background: var(--green-bright);
+  box-shadow: 0 0 16px rgba(134, 188, 66, 0.4);
+}
+
+.btn-ghost {
+  background: var(--bg-glass);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background: var(--error-muted);
+  color: var(--error);
+  border: 1px solid rgba(201, 74, 74, 0.3);
+}
+.btn-danger:hover {
+  background: rgba(201, 74, 74, 0.2);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.badge-healthy    { background: rgba(134,188,66,0.15); color: var(--green-primary); border: 1px solid rgba(134,188,66,0.2); }
+.badge-attention  { background: rgba(201,147,58,0.15); color: var(--amber);         border: 1px solid rgba(201,147,58,0.2); }
+.badge-critical   { background: rgba(201,74,74,0.15);  color: var(--error);         border: 1px solid rgba(201,74,74,0.2); }
+.badge-recovering { background: rgba(74,154,191,0.15); color: var(--info);          border: 1px solid rgba(74,154,191,0.2); }
+
+/* Form inputs */
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 3px rgba(134, 188, 66, 0.12);
+}
+.input::placeholder {
+  color: var(--text-faint);
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left;
+  padding: 10px 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-muted);
+  color: var(--text-secondary);
+}
+.data-table tr:hover td {
+  background: var(--bg-glass);
+}
+
+/* DBMS Studio specific */
+.studio-card {
+  background: var(--studio-card);
+  border: 1px solid var(--studio-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-studio);
+}
+
+/* SQL code display */
+.sql-display {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  color: #c9d9b3;
+  overflow-x: auto;
+}
+
+/* Metric stat cards */
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Sidebar navigation */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+.nav-item.active {
+  background: rgba(134, 188, 66, 0.12);
+  color: var(--green-primary);
+  border-color: rgba(134, 188, 66, 0.2);
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-panel) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* DBMS Studio mode body override */
+body.studio-mode {
+  background-color: var(--studio-bg);
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(134, 188, 66, 0.2); }
+  50%       { box-shadow: 0 0 20px rgba(134, 188, 66, 0.5); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
