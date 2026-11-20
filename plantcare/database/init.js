@@ -21,6 +21,10 @@ const config = {
   database: process.env.DB_NAME,
   user:     process.env.DB_USER,
   password: process.env.DB_PASSWORD,
+  // Hosted databases (Neon, Supabase) require SSL; local Postgres does not
+  ssl: ['localhost', '127.0.0.1'].includes(process.env.DB_HOST || 'localhost')
+    ? false
+    : { rejectUnauthorized: false },
 };
 
 console.log('🌿 =========================================================');
