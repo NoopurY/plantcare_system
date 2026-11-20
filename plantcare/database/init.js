@@ -1,6 +1,7 @@
 // database/init.js - Automated PostgreSQL Database Setup Script
 // Executes all schema, index, view, function, trigger, and seed scripts in order.
 
+import dns from 'dns/promises';
 import fs from 'fs';
 import path from 'path';
 import pg from 'pg';
@@ -124,4 +125,23 @@ async function runDatabaseInitialization() {
   }
 }
 
+// Some networks' DNS servers cannot resolve hosted-database hostnames (e.g. Neon).
+// Resolve the host through Google DNS and connect by IP, keeping the real
+// hostname for TLS (SNI) so the provider still routes to the right database.
+async function resolveHostViaPublicDns() {
+  if (!config.ssl) return;
+  const hostname = config.host;
+  try {
+    const resolver = new dns.Resolver();
+    resolver.setServers(['8.8.8.8', '1.1.1.1']);
+    const [ip] = await resolver.resolve4(hostname);
+    config.host = ip;
+    config.ssl = { ...config.ssl, servername: hostname };
+    console.log(`🔎 Resolved ${hostname} -> ${ip} via public DNS`);
+  } catch (err) {
+    console.log(`⚠️  Public DNS lookup failed (${err.code}); using system DNS`);
+  }
+}
+
+await resolveHostViaPublicDns();
 runDatabaseInitialization();
